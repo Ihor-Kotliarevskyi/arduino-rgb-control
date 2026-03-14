@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arduino Control</title>
+<script src="/socket.io/socket.io.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="panel">
+
+  <header>
+    <div class="logo">
+      <div class="logo-title">Arduino Control</div>
+      <div class="logo-sub">Serial via Node.js · WebSocket</div>
+    </div>
+    <div class="status-badge disconnected" id="status-badge">
+      <span class="dot"></span>
+      <span id="status-text">відключено</span>
+    </div>
+  </header>
+
+  <div class="card">
+    <div class="card-title">Колір RGB</div>
+    <div class="color-picker-wrap">
+      <canvas id="color-wheel" width="220" height="220"></canvas>
+      <div class="color-info">
+        <div class="color-preview" id="color-preview"></div>
+        <div class="color-values">
+          <div class="color-val"><span class="val-label r" onclick="sendSingle('r')" title="Увімкнути тільки червоний">R</span><input class="val-input" id="val-r" type="number" min="0" max="255" placeholder="0"/></div>
+          <div class="color-val"><span class="val-label g" onclick="sendSingle('g')" title="Увімкнути тільки зелений">G</span><input class="val-input" id="val-g" type="number" min="0" max="255" placeholder="0"/></div>
+          <div class="color-val"><span class="val-label b" onclick="sendSingle('b')" title="Увімкнути тільки синій">B</span><input class="val-input" id="val-b" type="number" min="0" max="255" placeholder="0"/></div>
+        </div>
+        <div class="color-hex" id="color-hex">#——</div>
+        <button class="btn-off-rgb" id="btn-off" onclick="turnOff()">Вимкнути</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Власна команда</div>
+    <div class="custom-row">
+      <input class="cmd-input" id="custom-cmd" placeholder="Команда для Arduino..."
+        maxlength="64" onkeydown="if(event.key==='Enter') sendCustom()"/>
+      <button class="btn-send" onclick="sendCustom()">Надіслати</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="log-header">
+      <div class="card-title" style="margin:0">Serial лог</div>
+      <button class="log-clear" onclick="clearLog()">очистити</button>
+    </div>
+    <div class="log-box" id="log">
+      <div class="log-empty" id="log-empty">Очікування даних...<br>підключіть Arduino і запустіть сервер</div>
+    </div>
+  </div>
+
+  <footer>localhost:3000 · socket.io · serialport</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
