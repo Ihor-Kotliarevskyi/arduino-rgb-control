@@ -2,6 +2,14 @@
 
 A web interface for controlling an RGB LED connected to Arduino via USB, built with Node.js, Express, Socket.IO, and a Canvas color wheel.
 
+## About
+
+A pet project built to explore how a browser-based UI can communicate with physical hardware in real time. The idea was simple: pick a color on screen and have an RGB LED reproduce it instantly — no cloud, no Wi-Fi module, just a USB cable and a Node.js server acting as the bridge between the browser and Arduino's Serial port.
+
+The frontend uses the Canvas 2D API to render an HSL color wheel. Clicking or dragging on it reads the pixel color and sends an `RGB r g b` command to the server over a WebSocket. The server forwards it to Arduino via Serial, where PWM signals drive each LED channel independently.
+
+The project covers the full path from a browser event to physical light — which turned out to be a practical way to understand Serial communication, event throttling, and real-time WebSocket messaging.
+
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-4.x-010101?logo=socket.io&logoColor=white)
